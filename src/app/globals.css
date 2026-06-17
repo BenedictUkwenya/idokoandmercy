@@ -2186,32 +2186,96 @@ a {
   }
 
   .welcome-splash {
-    padding: max(1rem, env(safe-area-inset-top)) 0.75rem max(1rem, env(safe-area-inset-bottom));
+    align-items: center;
+    padding: max(0.85rem, env(safe-area-inset-top)) 0.9rem max(1.35rem, env(safe-area-inset-bottom));
+  }
+
+  .welcome-splash::before {
+    background:
+      radial-gradient(circle at 50% 36%, oklch(0.96 0.12 88 / 0.46), transparent 13rem),
+      linear-gradient(112deg, transparent 0 32%, oklch(0.86 0.12 86 / 0.16) 45%, transparent 62% 100%);
+    inset: -12%;
+    opacity: 0.78;
+  }
+
+  .welcome-splash-photo {
+    background-position: center top;
+  }
+
+  .welcome-splash-overlay {
+    background:
+      radial-gradient(circle at 50% 34%, oklch(0.95 0.12 86 / 0.3), oklch(0 0 0 / 0.34) 56%, oklch(0 0 0 / 0.6) 100%),
+      linear-gradient(180deg, oklch(0.55 0.09 82 / 0.52), oklch(0.14 0.04 70 / 0.9));
+  }
+
+  .welcome-splash-sparkles {
+    mask-image: radial-gradient(circle at 50% 42%, black 0 44%, transparent 78%);
   }
 
   .welcome-splash-content {
-    gap: 0.9rem;
-    margin-top: clamp(1.75rem, 7svh, 4rem);
-    max-width: min(28rem, calc(100vw - 1rem));
-    padding-inline: 0.75rem;
+    gap: clamp(0.72rem, 2svh, 0.95rem);
+    margin-top: clamp(-2.25rem, -4svh, -1rem);
+    max-width: min(25rem, calc(100vw - 1.5rem));
+    padding: 1rem 0.45rem;
   }
 
   .welcome-splash-guest {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    line-height: 1.55;
     max-width: 28ch;
   }
 
+  .welcome-splash-names {
+    gap: 0.35rem;
+    width: min(25rem, calc(100vw - 1rem));
+  }
+
+  .welcome-splash-names > span {
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+  }
+
   .welcome-splash-title {
-    font-size: clamp(3.45rem, 16vw, 5.35rem) !important;
+    font-size: clamp(3.2rem, 14.5vw, 4.75rem) !important;
+    line-height: 0.92;
     padding-inline: 0.25rem;
   }
 
+  .welcome-splash-title .sparkles-text-inner::before {
+    inset: -0.65rem -0.85rem;
+    opacity: 0.58;
+  }
+
   .welcome-splash-meta {
-    font-size: 1rem;
+    font-size: 0.96rem;
+    line-height: 1.55;
+    max-width: 24ch;
   }
 
   .welcome-splash-open {
-    height: 5rem;
-    width: 5rem;
+    height: 4.6rem;
+    margin-top: 0.25rem;
+    width: 4.6rem;
+  }
+
+  .welcome-splash-open-ring {
+    inset: -0.45rem;
+  }
+
+  .welcome-splash-open-pulse {
+    inset: -0.9rem;
+  }
+
+  .welcome-splash-open-icon {
+    height: 1.42rem;
+    width: 1.42rem;
+  }
+
+  .welcome-splash-hint {
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+    max-width: 26ch;
   }
 
   .spline-card {
