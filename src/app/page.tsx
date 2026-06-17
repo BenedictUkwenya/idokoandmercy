@@ -115,8 +115,10 @@ function AppHeader() {
         <span>Idoko & Mercy</span>
         <small>Wedding Experience</small>
       </a>
-      <p className="header-note header-note-center">Wedding Invitation</p>
-      <p className="header-note">Saturday, 12th December 2026</p>
+      <div className="app-header-meta">
+        <p className="header-note header-note-center">Wedding Invitation</p>
+        <p className="header-note">Saturday, 12th December 2026</p>
+      </div>
     </header>
   );
 }
