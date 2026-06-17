@@ -52,6 +52,8 @@ a {
   display: flex;
   inset: 0;
   justify-content: center;
+  min-height: 100svh;
+  min-height: 100dvh;
   overflow: hidden;
   position: fixed;
   z-index: 100;
@@ -1828,6 +1830,35 @@ a {
     left: 1rem;
     right: 1rem;
     top: 1rem;
+  }
+
+  .welcome-splash {
+    padding: max(1rem, env(safe-area-inset-top)) 0.75rem max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .welcome-splash-content {
+    gap: 0.9rem;
+    margin-top: clamp(1.75rem, 7svh, 4rem);
+    max-width: min(28rem, calc(100vw - 1rem));
+    padding-inline: 0.75rem;
+  }
+
+  .welcome-splash-guest {
+    max-width: 28ch;
+  }
+
+  .welcome-splash-title {
+    font-size: clamp(3.45rem, 16vw, 5.35rem) !important;
+    padding-inline: 0.25rem;
+  }
+
+  .welcome-splash-meta {
+    font-size: 1rem;
+  }
+
+  .welcome-splash-open {
+    height: 5rem;
+    width: 5rem;
   }
 
   .spline-card {
