@@ -1,6 +1,6 @@
 # Idoko & Mercy Wedding Experience
 
-A premium, mobile-first wedding invitation experience for Barrister Idoko and Mercy. Built with Next.js, Tailwind CSS, Framer Motion, GSAP, Spline, Supabase SDK readiness, and interactive invitation moments including a welcome gate, scratch reveal, story scroll, countdown, map, and RSVP preview.
+A premium, mobile-first wedding invitation experience for Idoko and Mercy. Built with Next.js, Tailwind CSS, Framer Motion, GSAP, Spline, Supabase SDK readiness, and interactive invitation moments including a welcome gate, scratch reveal, story scroll, countdown, map, and RSVP preview.
 
 ## Local Development
 

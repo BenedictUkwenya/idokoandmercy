@@ -8,7 +8,6 @@ import { SparklesText } from "@/components/ui/sparkles-text";
 import { SparklesCore } from "@/components/ui/sparkles";
 
 type WelcomeSplashProps = {
-  guestName?: string;
   coupleNames?: string;
   weddingDate?: string;
   venue?: string;
@@ -20,14 +19,14 @@ type WelcomeSplashProps = {
 };
 
 const easeOut = [0.23, 1, 0.32, 1] as const;
+const easeInOut = [0.77, 0, 0.175, 1] as const;
 
 export function WelcomeSplash({
-  guestName = "Mr. & Mrs. Adewale",
-  coupleNames = "Barrister Idoko & Mercy",
+  coupleNames = "Idoko & Mercy",
   weddingDate = "Saturday, 12th December 2026",
   venue = "Grand Palace Hall, Victoria Island",
-  photo = "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85",
-  photoAlt = "Wedding couple portrait",
+  photo = "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=85",
+  photoAlt = "Warm wedding ceremony setup with floral details",
   sparkleColor = "#f5d37a",
   onBeginOpen,
   onComplete,
@@ -51,7 +50,7 @@ export function WelcomeSplash({
     window.setTimeout(() => {
       onComplete();
       document.body.style.overflow = "";
-    }, 1900);
+    }, 2200);
   };
 
   return (
@@ -62,29 +61,29 @@ export function WelcomeSplash({
       exit={{ opacity: 0 }}
       initial={{ opacity: 1 }}
       role="dialog"
-      transition={{ delay: isOpening ? 1.15 : 0, duration: 0.55, ease: easeOut }}
+      transition={{ delay: isOpening ? 1.62 : 0, duration: 0.5, ease: easeOut }}
     >
       <motion.div
-        animate={isOpening ? { filter: "blur(8px)", scale: 1.28 } : { filter: "blur(0px)", scale: 1.08 }}
+        animate={isOpening ? { filter: "blur(3px)", scale: 1.16 } : { filter: "blur(0px)", scale: 1.08 }}
         aria-label={photoAlt}
         className="welcome-splash-photo"
         initial={{ scale: 1.08 }}
         role="img"
         style={{ backgroundImage: `url(${photo})` }}
-        transition={{ duration: 1.5, ease: easeOut }}
+        transition={{ duration: 1.45, ease: easeInOut }}
       />
       <motion.div
-        animate={isOpening ? { opacity: 0.72 } : { opacity: 1 }}
+        animate={isOpening ? { opacity: 0.34 } : { opacity: 1 }}
         aria-hidden="true"
         className="welcome-splash-overlay"
-        transition={{ duration: 1, ease: easeOut }}
+        transition={{ duration: 1.15, ease: easeOut }}
       />
 
       <motion.div
-        animate={isOpening ? { opacity: 1, scale: 1.22 } : { opacity: 0.55, scale: 1 }}
+        animate={isOpening ? { opacity: 1, scale: 1.36 } : { opacity: 0.55, scale: 1 }}
         aria-hidden="true"
         className="welcome-splash-sparkles"
-        transition={{ duration: 1, ease: easeOut }}
+        transition={{ duration: 1.2, ease: easeOut }}
       >
         <SparklesCore
           background="transparent"
@@ -98,10 +97,10 @@ export function WelcomeSplash({
       </motion.div>
 
       <motion.div
-        animate={isOpening ? { opacity: 0, scale: 0.92, y: -20 } : { opacity: 1, scale: 1, y: 0 }}
+        animate={isOpening ? { opacity: 0, scale: 0.94, y: -14, filter: "blur(6px)" } : { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
         className="welcome-splash-content"
         initial={{ opacity: 0, y: 28 }}
-        transition={{ duration: isOpening ? 0.35 : 0.8, ease: easeOut }}
+        transition={{ duration: isOpening ? 0.42 : 0.8, ease: easeOut }}
       >
         <motion.p
           animate={{ opacity: 1, y: 0 }}
@@ -109,7 +108,7 @@ export function WelcomeSplash({
           initial={{ opacity: 0, y: 16 }}
           transition={{ delay: 0.15, duration: 0.6, ease: easeOut }}
         >
-          A private invitation for {guestName}
+          A private wedding invitation
         </motion.p>
 
         <motion.div
@@ -121,8 +120,8 @@ export function WelcomeSplash({
           <span>Wedding of</span>
           <SparklesText
             className="welcome-splash-title"
-            colors={{ first: sparkleColor, second: "#ffffff" }}
-            sparklesCount={14}
+            colors={{ first: "#fff8dc", second: sparkleColor }}
+            sparklesCount={26}
             text={coupleNames}
           />
         </motion.div>
@@ -139,13 +138,21 @@ export function WelcomeSplash({
         </motion.p>
 
         <motion.button
-          animate={{ opacity: isOpening ? 0 : 1, scale: isOpening ? 1.2 : 1 }}
+          animate={
+            isOpening
+              ? { opacity: [1, 1, 0], scale: [1, 1.18, 0.55], y: [0, 0, 8] }
+              : { opacity: 1, scale: 1, y: 0 }
+          }
           aria-label="Open wedding invitation"
           className="welcome-splash-open"
           disabled={isOpening}
           initial={{ opacity: 0, scale: 0.88 }}
           onClick={handleOpen}
-          transition={{ delay: isOpening ? 0 : 0.58, duration: 0.55, ease: easeOut }}
+          transition={
+            isOpening
+              ? { duration: 0.68, ease: easeInOut, times: [0, 0.42, 1] }
+              : { delay: 0.58, duration: 0.55, ease: easeOut }
+          }
           type="button"
           whileHover={{ scale: isOpening ? 1.2 : 1.04 }}
           whileTap={{ scale: 0.96 }}
@@ -169,39 +176,53 @@ export function WelcomeSplash({
         {isOpening && (
           <>
             <motion.div
-              animate={{ opacity: [0, 1, 0], scale: [0.2, 1.35, 2.8] }}
+              animate={{ opacity: [0, 1, 0.88, 0], scale: [0.1, 1.25, 7.5, 18], rotate: [0, 10, 18, 24] }}
               aria-hidden="true"
-              className="welcome-splash-burst"
-              initial={{ opacity: 0, scale: 0.2 }}
-              transition={{ duration: 0.85, ease: easeOut, times: [0, 0.28, 1] }}
+              className="welcome-splash-aperture"
+              initial={{ opacity: 0, scale: 0.1, rotate: 0 }}
+              transition={{ duration: 1.55, ease: easeInOut, times: [0, 0.18, 0.62, 1] }}
             />
             <motion.div
-              animate={{ opacity: [0, 0.55, 0] }}
+              animate={{ opacity: [0, 1, 0], scale: [0.25, 1.45, 2.35] }}
+              aria-hidden="true"
+              className="welcome-splash-burst"
+              initial={{ opacity: 0, scale: 0.25 }}
+              transition={{ duration: 0.95, ease: easeOut, times: [0, 0.28, 1] }}
+            />
+            <motion.div
+              animate={{ opacity: [0, 0.78, 0] }}
               aria-hidden="true"
               className="welcome-splash-flash"
               initial={{ opacity: 0 }}
-              transition={{ duration: 0.7, ease: easeOut, times: [0, 0.35, 1] }}
+              transition={{ duration: 0.9, ease: easeOut, times: [0, 0.38, 1] }}
             />
             <motion.div
-              animate={{ x: ["0%", "-108%"] }}
+              animate={{ clipPath: ["inset(0% 0% 0% 0%)", "inset(0% 100% 0% 0%)"], x: ["0%", "-9%"], rotateZ: [0, -2] }}
               aria-hidden="true"
-              className="welcome-splash-curtain welcome-splash-curtain-left"
-              initial={{ x: "0%" }}
-              transition={{ delay: 0.28, duration: 1.15, ease: easeOut }}
+              className="welcome-splash-fold welcome-splash-fold-left"
+              initial={{ clipPath: "inset(0% 0% 0% 0%)", x: "0%", rotateZ: 0 }}
+              transition={{ delay: 0.32, duration: 1.15, ease: easeInOut }}
             />
             <motion.div
-              animate={{ x: ["0%", "108%"] }}
+              animate={{ clipPath: ["inset(0% 0% 0% 0%)", "inset(0% 0% 0% 100%)"], x: ["0%", "9%"], rotateZ: [0, 2] }}
               aria-hidden="true"
-              className="welcome-splash-curtain welcome-splash-curtain-right"
-              initial={{ x: "0%" }}
-              transition={{ delay: 0.28, duration: 1.15, ease: easeOut }}
+              className="welcome-splash-fold welcome-splash-fold-right"
+              initial={{ clipPath: "inset(0% 0% 0% 0%)", x: "0%", rotateZ: 0 }}
+              transition={{ delay: 0.32, duration: 1.15, ease: easeInOut }}
+            />
+            <motion.div
+              animate={{ opacity: [0, 1, 0], y: ["30%", "-18%", "-70%"] }}
+              aria-hidden="true"
+              className="welcome-splash-gold-rain"
+              initial={{ opacity: 0, y: "30%" }}
+              transition={{ duration: 1.35, delay: 0.18, ease: easeOut, times: [0, 0.35, 1] }}
             />
             <motion.p
-              animate={{ opacity: [0, 1, 0], y: [8, 0, -6] }}
+              animate={{ opacity: [0, 1, 0], y: [8, 0, -8], filter: ["blur(4px)", "blur(0px)", "blur(5px)"] }}
               aria-hidden="true"
               className="welcome-splash-opening-text"
               initial={{ opacity: 0, y: 8 }}
-              transition={{ duration: 1.2, delay: 0.35, ease: easeOut, times: [0, 0.35, 1] }}
+              transition={{ duration: 1.25, delay: 0.42, ease: easeOut, times: [0, 0.34, 1] }}
             >
               Opening the invitation
             </motion.p>

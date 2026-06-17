@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties, type ReactElement } from "react";
+import { type CSSProperties, type ReactElement, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ type Sparkle = {
   color: string;
   delay: number;
   scale: number;
+  lifespan: number;
 };
 
 type SparklesTextProps = {
@@ -25,29 +26,48 @@ type SparklesTextProps = {
   };
 };
 
-function seededValue(index: number, salt: number) {
-  const x = Math.sin(index * 999 + salt * 101) * 10000;
-
-  return x - Math.floor(x);
-}
-
-function generateStar(index: number, colors: { first: string; second: string }): Sparkle {
-  const x = `${8 + seededValue(index, 1) * 84}%`;
-  const y = `${4 + seededValue(index, 2) * 92}%`;
-  const color = seededValue(index, 3) > 0.5 ? colors.first : colors.second;
-  const delay = seededValue(index, 4) * 2;
-  const scale = seededValue(index, 5) + 0.3;
-
-  return { id: `sparkle-${index}`, x, y, color, delay, scale };
-}
-
 export function SparklesText({
   text,
   colors = { first: "#f5d37a", second: "#ffffff" },
   className,
   sparklesCount = 10,
 }: SparklesTextProps) {
-  const sparkles = Array.from({ length: sparklesCount }, (_, index) => generateStar(index, colors));
+  const [sparkles, setSparkles] = useState<Sparkle[]>([]);
+
+  useEffect(() => {
+    const generateStar = (): Sparkle => {
+      const starX = `${Math.random() * 100}%`;
+      const starY = `${Math.random() * 100}%`;
+      const color = Math.random() > 0.5 ? colors.first : colors.second;
+      const delay = Math.random() * 2;
+      const scale = Math.random() + 0.3;
+      const lifespan = Math.random() * 10 + 5;
+      const id = `${starX}-${starY}-${Date.now()}-${Math.random()}`;
+
+      return { id, x: starX, y: starY, color, delay, scale, lifespan };
+    };
+
+    const initializeStars = () => {
+      setSparkles(Array.from({ length: sparklesCount }, generateStar));
+    };
+
+    const updateStars = () => {
+      setSparkles((currentSparkles) =>
+        currentSparkles.map((star) => {
+          if (star.lifespan <= 0) {
+            return generateStar();
+          }
+
+          return { ...star, lifespan: star.lifespan - 0.1 };
+        }),
+      );
+    };
+
+    initializeStars();
+    const interval = window.setInterval(updateStars, 100);
+
+    return () => window.clearInterval(interval);
+  }, [colors.first, colors.second, sparklesCount]);
 
   return (
     <div

@@ -36,12 +36,12 @@ interface WeddingScratchCardProps {
   compact?: boolean;
 }
 
-const particleColors = ["#FFD700", "#FFC700", "#FFB700", "#FFA500", "#FF69B4", "#FF1493"];
+const particleColors = ["#F8E7A7", "#F1D48A", "#D9AE54", "#B8872D", "#FFF7D6", "#E8C978"];
 
 export function WeddingScratchCard({
   weddingDate = "April 30, 2026",
   venue = "Grand Palace Hall, Victoria Island",
-  coupleNames = "Barrister Idoko & Mercy",
+  coupleNames = "Idoko & Mercy",
   revealThreshold = 48,
   compact = false,
 }: WeddingScratchCardProps) {

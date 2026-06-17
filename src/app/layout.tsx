@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { Manrope, Marcellus } from "next/font/google";
+import { Bodoni_Moda, Quattrocento_Sans } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const quattrocentoSans = Quattrocento_Sans({
+  variable: "--font-quattrocento-sans",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
-const marcellus = Marcellus({
-  variable: "--font-marcellus",
-  weight: "400",
+const bodoniModa = Bodoni_Moda({
+  variable: "--font-bodoni-moda",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Barrister Idoko & Mercy Wedding Experience",
+  title: "Idoko & Mercy Wedding Experience",
   description:
     "A premium digital wedding invitation experience with RSVP, program, venue, and guest guidance.",
 };
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${marcellus.variable} h-full antialiased`}
+      className={`${quattrocentoSans.variable} ${bodoniModa.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

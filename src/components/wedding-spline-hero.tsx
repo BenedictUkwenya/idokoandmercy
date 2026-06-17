@@ -7,29 +7,9 @@ import { CursorSpotlight } from "@/components/ui/cursor-spotlight";
 import { SplineScene } from "@/components/ui/splite";
 import { Spotlight } from "@/components/ui/spotlight";
 
-type WeddingSplineHeroProps = {
-  tone: "velvet" | "celestial" | "lagos";
-};
-
 const sceneUrl = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
-export function WeddingSplineHero({ tone }: WeddingSplineHeroProps) {
-  const copy =
-    tone === "celestial"
-      ? {
-          title: "A little moonlit welcome",
-          body: "Move around and let the invitation respond, like a soft first hello before the celebration begins.",
-        }
-      : tone === "lagos"
-        ? {
-            title: "Your personal wedding pass",
-            body: "A playful first moment before guests see the RSVP, directions, program, and celebration details.",
-          }
-        : {
-            title: "You are warmly invited",
-            body: "An intimate 3D welcome before the invitation opens, the date is revealed, and the story begins.",
-          };
-
+export function WeddingSplineHero() {
   return (
     <Card className="spline-card">
       <Spotlight className="-top-44 left-0 md:-top-28 md:left-28" fill="white" />
@@ -39,9 +19,9 @@ export function WeddingSplineHero({ tone }: WeddingSplineHeroProps) {
         springOptions={{ damping: 20, stiffness: 140 }}
       />
       <div className="spline-copy">
-        <span>Barrister Idoko & Mercy</span>
-        <h2>{copy.title}</h2>
-        <p>{copy.body}</p>
+        <span>Idoko & Mercy</span>
+        <h2>A luminous welcome</h2>
+        <p>Move around and let the invitation shimmer gently before the date, venue, and RSVP details unfold.</p>
         <div className="spline-rings" aria-hidden="true">
           <span />
           <span />

@@ -13,6 +13,7 @@ import { type ReactNode, useState } from "react";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { CountdownTimer } from "@/components/ui/countdown-timer";
 import { LocationMap } from "@/components/ui/expand-map";
+import { WeddingShuffleGrid } from "@/components/ui/shuffle-grid";
 import { SparklesCore } from "@/components/ui/sparkles";
 import FlowArt, { FlowSection } from "@/components/ui/story-scroll";
 import TeamShowcase from "@/components/ui/team-showcase";
@@ -21,12 +22,10 @@ import { WeddingScratchCard } from "@/components/wedding-scratch-card";
 import { WeddingSplineHero } from "@/components/wedding-spline-hero";
 
 type Design = {
-  id: "velvet" | "celestial" | "lagos";
+  id: "champagne";
   label: string;
-  short: string;
   theme: string;
   promise: string;
-  mood: string;
   intro: string;
   heroLine: string;
   button: string;
@@ -35,53 +34,19 @@ type Design = {
   sections: string[];
 };
 
-const designs: Design[] = [
-  {
-    id: "velvet",
-    label: "Velvet Reveal",
-    short: "Velvet",
-    theme: "theme-velvet",
-    promise: "A cinematic invitation that opens like a private red-carpet card.",
-    mood: "Deep wine, candlelight, gold dust, slow reveals.",
-    intro: "Together with their families, Barrister Idoko and Mercy invite you into a night made for memory.",
-    heroLine: "Press play to open the invitation",
-    button: "Open the card",
-    photo:
-      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85",
-    alt: "A couple holding each other during an outdoor wedding portrait.",
-    sections: ["Private welcome", "Scratch reveal", "Formal program"],
-  },
-  {
-    id: "celestial",
-    label: "Celestial Garden",
-    short: "Garden",
-    theme: "theme-celestial",
-    promise: "A dreamy moonlit wedding garden with a tiny guide that follows the guest.",
-    mood: "Midnight blue, soft sky, floating petals, star-map timing.",
-    intro: "A little moon messenger leads every guest through the story, the date, and the way there.",
-    heroLine: "Follow the little moon",
-    button: "Enter the garden",
-    photo:
-      "https://images.unsplash.com/photo-1523438097201-512ae7d59c44?auto=format&fit=crop&w=1400&q=85",
-    alt: "A softly lit wedding table under evening lights.",
-    sections: ["Animated story", "Constellation schedule", "Gentle RSVP"],
-  },
-  {
-    id: "lagos",
-    label: "Lagos Soiree",
-    short: "Soiree",
-    theme: "theme-lagos",
-    promise: "A confident, colorful concierge that gets Nigerian guests to the wedding without stress.",
-    mood: "Sky blue, coral, crisp white, city movement.",
-    intro: "Every important detail is close to the thumb: RSVP, map, contacts, schedule, and updates.",
-    heroLine: "Your wedding pass is ready",
-    button: "View my pass",
-    photo:
-      "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1400&q=85",
-    alt: "A bride and groom walking through a wedding celebration.",
-    sections: ["Smart logistics", "Map-first venue", "RSVP dashboard"],
-  },
-];
+const design: Design = {
+  id: "champagne",
+  label: "Wedding Invitation",
+  theme: "theme-champagne",
+  promise: "A warm luminous invitation with soft light, polished motion, and graceful guest guidance.",
+  intro: "Together with their families, Idoko and Mercy invite you into a celebration wrapped in golden light.",
+  heroLine: "A warm welcome awaits",
+  button: "Open the invitation",
+  photo:
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=85",
+  alt: "A warm wedding ceremony setup with floral details.",
+  sections: ["Private welcome", "Scratch reveal", "Formal program"],
+};
 
 const program = [
   ["10:00am", "Guest arrival"],
@@ -101,7 +66,7 @@ const details = [
 const story = [
   ["How we met", "A short hello after service became a conversation neither of them wanted to end."],
   ["First date", "A quiet table, too much laughter, and the first small promise to see each other again."],
-  ["The yes", "Under warm evening lights, Mercy said yes before Barrister Idoko finished the question."],
+  ["The yes", "Under warm evening lights, Mercy said yes before Idoko finished the question."],
 ];
 
 const weddingVenue = "Grand Palace Hall, Victoria Island, Lagos, Nigeria";
@@ -116,10 +81,7 @@ const reveal = {
 };
 
 function getSparkleColor(design: Design) {
-  if (design.id === "celestial") return "#b7f5ff";
-  if (design.id === "lagos") return "#ffb19f";
-
-  return "#f5d37a";
+  return design.id === "champagne" ? "#f1d78a" : "#f5d37a";
 }
 
 function MotionSection({
@@ -146,64 +108,20 @@ function MotionSection({
   );
 }
 
-function DesignSwitcher({
-  active,
-  setActive,
-}: {
-  active: number;
-  setActive: (index: number) => void;
-}) {
-  return (
-    <motion.div
-      animate={{ opacity: 1, y: 0 }}
-      aria-label="Choose design direction"
-      className="design-switcher"
-      initial={{ opacity: 0, y: 18 }}
-      transition={{ duration: 0.45, ease: easeOut }}
-    >
-      <span>Design direction</span>
-      <div>
-        {designs.map((design, index) => (
-          <motion.button
-            aria-pressed={active === index}
-            className={active === index ? "is-active" : ""}
-            key={design.id}
-            layout
-            onClick={() => setActive(index)}
-            type="button"
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <span>{design.short}</span>
-          </motion.button>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-function AppHeader({
-  active,
-  design,
-  setActive,
-}: {
-  active: number;
-  design: Design;
-  setActive: (index: number) => void;
-}) {
+function AppHeader() {
   return (
     <header className="app-header">
       <a className="brand-mark" href="#">
-        <span>Barrister Idoko & Mercy</span>
+        <span>Idoko & Mercy</span>
         <small>Wedding Experience</small>
       </a>
-      <DesignSwitcher active={active} setActive={setActive} />
-      <p className="header-note">{design.mood}</p>
+      <p className="header-note header-note-center">Wedding Invitation</p>
+      <p className="header-note">Saturday, 12th December 2026</p>
     </header>
   );
 }
 
-function CursorCompanion({ design }: { design: Design }) {
+function CursorCompanion() {
   const x = useMotionValue(32);
   const y = useMotionValue(32);
   const springX = useSpring(x, { damping: 16, stiffness: 130 });
@@ -226,40 +144,15 @@ function CursorCompanion({ design }: { design: Design }) {
         aria-hidden="true"
         className="cute-guide"
         style={{ x: springX, y: springY }}
-        whileHover={{ rotate: design.id === "celestial" ? 8 : -8, scale: 1.08 }}
+        whileHover={{ rotate: -8, scale: 1.08 }}
       >
         <span className="guide-face">
           <span />
           <span />
         </span>
       </motion.span>
-      <p>{design.theme === "theme-celestial" ? "I am watching your cursor." : "Move around. The invite reacts."}</p>
+      <p>Move around. The invitation reacts.</p>
     </motion.div>
-  );
-}
-
-function HeroPreview({ design }: { design: Design }) {
-  return (
-    <div className="hero-preview">
-      <motion.div
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        className="couple-preview"
-        initial={{ opacity: 0, y: 42, scale: 0.96 }}
-        transition={{ delay: 0.1, duration: 0.75, ease: easeOut }}
-      >
-        <div
-          className="couple-photo"
-          role="img"
-          aria-label={design.alt}
-          style={{ backgroundImage: `url(${design.photo})` }}
-        />
-        <div className="preview-copy">
-          <span>{design.heroLine}</span>
-          <h2>We are getting married</h2>
-          <p>Saturday, 12th December 2026 · Grand Palace Hall</p>
-        </div>
-      </motion.div>
-    </div>
   );
 }
 
@@ -276,7 +169,7 @@ function Hero({ design }: { design: Design }) {
           maxSize={1.15}
           minSize={0.35}
           particleColor={getSparkleColor(design)}
-          particleDensity={design.id === "celestial" ? 150 : 95}
+          particleDensity={110}
           speed={0.65}
         />
       </div>
@@ -287,14 +180,14 @@ function Hero({ design }: { design: Design }) {
         transition={{ duration: 0.7, ease: easeOut }}
       >
         <motion.p className="guest-pill" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
-          Welcome Mr. & Mrs. Adewale
+          You are warmly invited
         </motion.p>
         <motion.h1
           animate={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 34 }}
           transition={{ delay: 0.08, duration: 0.7, ease: easeOut }}
         >
-          Barrister Idoko & Mercy
+          Idoko & Mercy
         </motion.h1>
         <motion.p
           animate={{ opacity: 1, y: 0 }}
@@ -317,7 +210,14 @@ function Hero({ design }: { design: Design }) {
         </div>
       </motion.div>
 
-      <HeroPreview design={design} />
+      <motion.div
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        className="hero-preview"
+        initial={{ opacity: 0, y: 42, scale: 0.96 }}
+        transition={{ delay: 0.1, duration: 0.75, ease: easeOut }}
+      >
+        <WeddingShuffleGrid />
+      </motion.div>
     </section>
   );
 }
@@ -343,7 +243,7 @@ function ScrollInvitationSection({ design }: { design: Design }) {
           />
           <div className="scroll-invitation-overlay">
             <span>{design.label}</span>
-            <h3>Barrister Idoko & Mercy</h3>
+            <h3>Idoko & Mercy</h3>
             <p>Saturday, 12th December 2026 · Grand Palace Hall</p>
           </div>
           <div className="scroll-invitation-panel">
@@ -395,7 +295,7 @@ function ScratchRevealSection() {
 
       <div className="scratch-section-card">
         <WeddingScratchCard
-          coupleNames="Barrister Idoko & Mercy"
+          coupleNames="Idoko & Mercy"
           venue="Grand Palace Hall, Victoria Island"
           weddingDate="April 30, 2026"
         />
@@ -413,11 +313,11 @@ function StorySection() {
           Their story should unfold like a scene guests can feel.
         </h2>
         <p>
-          A cinematic scroll through the moments that carried Barrister Idoko and Mercy from first
+          A cinematic scroll through the moments that carried Idoko and Mercy from first
           hello to forever.
         </p>
       </div>
-      <FlowArt aria-label="Barrister Idoko and Mercy wedding story scroll" className="flow-story">
+      <FlowArt aria-label="Idoko and Mercy wedding story scroll" className="flow-story">
         <FlowSection aria-label="The first hello" className="flow-panel flow-panel-primary">
           <p className="flow-kicker">01 — First hello</p>
           <hr />
@@ -483,7 +383,7 @@ function WeddingCircleSection() {
         <h2>Meet the circle carrying the celebration.</h2>
         <p>
           Family, friends, planners, glam, and film. A softer way to introduce the hands making
-          Barrister Idoko and Mercy&apos;s day feel effortless.
+          Idoko and Mercy&apos;s day feel effortless.
         </p>
       </div>
       <TeamShowcase />
@@ -603,7 +503,7 @@ function RsvpSection() {
       >
         <label>
           Full name
-          <input placeholder="Mr. & Mrs. Adewale" type="text" />
+          <input placeholder="Your full name" type="text" />
         </label>
         <label>
           Will you attend?
@@ -659,23 +559,21 @@ function KeepsakeSection() {
   );
 }
 
-function SplineMomentSection({ design }: { design: Design }) {
+function SplineMomentSection() {
   return (
     <MotionSection className="content-section spline-moment-section">
       <div className="section-heading">
         <span>Interactive welcome</span>
         <h2>A 3D moment can live after the first fold, not disturb the invitation.</h2>
       </div>
-      <WeddingSplineHero tone={design.id} />
+      <WeddingSplineHero />
     </MotionSection>
   );
 }
 
 export default function Home() {
-  const [activeDesign, setActiveDesign] = useState(0);
   const [hasEntered, setHasEntered] = useState(false);
   const [splashVisible, setSplashVisible] = useState(true);
-  const design = designs[activeDesign];
 
   return (
     <>
@@ -686,7 +584,7 @@ export default function Home() {
           initial={{ opacity: 0.35, filter: "blur(10px)", scale: 1.03, y: 24 }}
           transition={{ duration: 1.15, ease: easeOut }}
         >
-            <AppHeader active={activeDesign} design={design} setActive={setActiveDesign} />
+            <AppHeader />
             <AnimatePresence mode="wait">
               <motion.div
                 animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -699,10 +597,10 @@ export default function Home() {
                 <ScrollInvitationSection design={design} />
                 <StorySection />
                 <WeddingCircleSection />
-                <CursorCompanion design={design} />
+                <CursorCompanion />
                 <FeatureRail design={design} />
                 <ScratchRevealSection />
-                <SplineMomentSection design={design} />
+                <SplineMomentSection />
                 <DetailsSection />
                 <ProgramSection />
                 <NavigationSection />
@@ -716,8 +614,7 @@ export default function Home() {
       <AnimatePresence>
         {splashVisible && (
           <WelcomeSplash
-            coupleNames="Barrister Idoko & Mercy"
-            guestName="Mr. & Mrs. Adewale"
+            coupleNames="Idoko & Mercy"
             onBeginOpen={() => setHasEntered(true)}
             onComplete={() => setSplashVisible(false)}
             photo={design.photo}

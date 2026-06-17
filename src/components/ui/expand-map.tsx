@@ -66,6 +66,7 @@ export function LocationMap({
         }}
         className="relative w-full overflow-hidden rounded-2xl border border-[color:var(--line)] bg-[var(--surface)] shadow-2xl"
         style={{
+          maxWidth: 250,
           rotateX: springRotateX,
           rotateY: springRotateY,
           transformStyle: "preserve-3d",

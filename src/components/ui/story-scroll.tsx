@@ -86,10 +86,9 @@ export default function FlowArt({
 
         if (index > 0) {
           gsap.set(inner, {
-            autoAlpha: 0.72,
-            scale: 0.96,
+            autoAlpha: 1,
+            scale: 0.985,
             transformOrigin: "center center",
-            yPercent: 12,
           });
 
           const tween = gsap.to(inner, {
@@ -99,10 +98,9 @@ export default function FlowArt({
             scrollTrigger: {
               trigger: section,
               start: "top bottom",
-              end: "top 25%",
+              end: "top 45%",
               scrub: true,
             },
-            yPercent: 0,
           });
 
           if (tween.scrollTrigger) triggers.push(tween.scrollTrigger);

@@ -11,8 +11,8 @@
   --color-card: var(--surface);
   --color-card-foreground: var(--ink);
   --color-muted-foreground: var(--muted);
-  --font-sans: var(--font-manrope);
-  --font-display: var(--font-marcellus);
+  --font-sans: var(--font-quattrocento-sans);
+  --font-display: var(--font-bodoni-moda);
 }
 
 * {
@@ -26,12 +26,12 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-manrope), Arial, Helvetica, sans-serif;
+  font-family: var(--font-quattrocento-sans), Arial, Helvetica, sans-serif;
   min-width: 320px;
 }
 
 body:has(.welcome-splash) {
-  background: oklch(0.08 0.03 250);
+  background: oklch(0.17 0.038 72);
 }
 
 button,
@@ -49,6 +49,9 @@ a {
 
 .welcome-splash {
   align-items: center;
+  background:
+    radial-gradient(circle at 50% 42%, oklch(0.86 0.13 86 / 0.34), transparent 20rem),
+    oklch(0.17 0.038 72);
   display: flex;
   inset: 0;
   justify-content: center;
@@ -57,6 +60,20 @@ a {
   overflow: hidden;
   position: fixed;
   z-index: 100;
+}
+
+.welcome-splash::before {
+  background:
+    radial-gradient(circle at 50% 38%, oklch(0.96 0.12 88 / 0.38), transparent 18rem),
+    linear-gradient(112deg, transparent 0 28%, oklch(0.86 0.12 86 / 0.18) 42%, transparent 58% 100%);
+  content: "";
+  inset: -18%;
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  pointer-events: none;
+  position: absolute;
+  transform: rotate(-5deg);
+  z-index: 1;
 }
 
 .welcome-splash-photo {
@@ -70,8 +87,8 @@ a {
 
 .welcome-splash-overlay {
   background:
-    radial-gradient(circle at 50% 24%, oklch(0 0 0 / 0.18), oklch(0 0 0 / 0.72) 72%),
-    linear-gradient(180deg, oklch(0.12 0.04 20 / 0.55), oklch(0.08 0.03 250 / 0.88));
+    radial-gradient(circle at 50% 24%, oklch(0.95 0.12 86 / 0.34), oklch(0 0 0 / 0.48) 68%),
+    linear-gradient(180deg, oklch(0.42 0.075 76 / 0.68), oklch(0.15 0.04 70 / 0.9));
   inset: 0;
   position: absolute;
 }
@@ -79,7 +96,7 @@ a {
 .welcome-splash-sparkles {
   inset: 0;
   mask-image: radial-gradient(circle at 50% 42%, black 0 38%, transparent 72%);
-  opacity: 0.55;
+  opacity: 0.72;
   pointer-events: none;
   position: absolute;
 }
@@ -97,7 +114,7 @@ a {
 }
 
 .welcome-splash-guest {
-  color: oklch(0.92 0.06 82);
+  color: oklch(0.96 0.065 86);
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.16em;
@@ -122,11 +139,14 @@ a {
 .welcome-splash-title {
   color: oklch(1 0 0);
   display: block;
-  font-family: var(--font-marcellus), Georgia, serif;
-  font-size: clamp(3.8rem, 12vw, 7.4rem) !important;
-  font-weight: 400;
-  letter-spacing: -0.035em;
-  line-height: 0.86;
+  filter:
+    drop-shadow(0 0 0.55rem oklch(1 0 0 / 0.16))
+    drop-shadow(0 0.24rem 0 oklch(0.1 0.025 70 / 0.2));
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
+  font-size: clamp(4rem, 12vw, 7.8rem) !important;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 0.9;
   padding: 0.2rem 1.25rem;
   text-transform: none !important;
   text-wrap: balance;
@@ -136,10 +156,24 @@ a {
 .welcome-splash-title .sparkles-text-inner {
   display: inline-block;
   max-width: 12ch;
+  position: relative;
+}
+
+.welcome-splash-title .sparkles-text-inner::before {
+  background:
+    radial-gradient(circle at 22% 22%, oklch(0.98 0.1 88 / 0.52), transparent 4.8rem),
+    radial-gradient(circle at 78% 62%, oklch(0.9 0.13 86 / 0.36), transparent 5.6rem);
+  content: "";
+  filter: blur(2px);
+  inset: -1.2rem -1.6rem;
+  opacity: 0.75;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
 }
 
 .welcome-splash-title .sparkles-text-label {
-  color: inherit;
+  color: oklch(1 0 0) !important;
   display: inline-block;
   font-family: inherit;
   font-size: inherit !important;
@@ -150,7 +184,11 @@ a {
 }
 
 .welcome-splash-title svg {
-  filter: drop-shadow(0 0 0.7rem color-mix(in oklch, oklch(0.78 0.12 82) 75%, transparent));
+  filter: drop-shadow(0 0 0.7rem color-mix(in oklch, oklch(0.92 0.13 88) 86%, transparent));
+  height: clamp(1.1rem, 2.2vw, 1.75rem);
+  transform-box: fill-box;
+  transform-origin: center;
+  width: clamp(1.1rem, 2.2vw, 1.75rem);
 }
 
 .welcome-splash-meta {
@@ -163,14 +201,14 @@ a {
 .welcome-splash-open {
   align-items: center;
   background:
-    radial-gradient(circle at 35% 30%, oklch(1 0 0 / 0.28), transparent 42%),
-    color-mix(in oklch, oklch(0.52 0.13 23) 88%, white);
-  border: 1px solid oklch(1 0 0 / 0.34);
+    radial-gradient(circle at 35% 30%, oklch(1 0 0 / 0.32), transparent 42%),
+    linear-gradient(135deg, oklch(0.9 0.1 86), oklch(0.62 0.09 76));
+  border: 1px solid oklch(0.98 0.05 86 / 0.52);
   border-radius: 999px;
   box-shadow:
     0 0 0 0.45rem oklch(1 0 0 / 0.08),
     0 1.4rem 3.5rem oklch(0 0 0 / 0.34);
-  color: oklch(1 0 0);
+  color: oklch(0.2 0.035 72);
   cursor: pointer;
   display: grid;
   height: 5.4rem;
@@ -182,7 +220,7 @@ a {
 }
 
 .welcome-splash-open-ring {
-  border: 1px solid oklch(1 0 0 / 0.42);
+  border: 1px solid oklch(0.96 0.07 86 / 0.56);
   border-radius: 999px;
   inset: -0.55rem;
   position: absolute;
@@ -190,7 +228,7 @@ a {
 
 .welcome-splash-open-pulse {
   animation: welcome-pulse 2.4s ease-in-out infinite;
-  border: 1px solid oklch(1 0 0 / 0.22);
+  border: 1px solid oklch(0.92 0.08 86 / 0.34);
   border-radius: 999px;
   inset: -1.1rem;
   position: absolute;
@@ -211,52 +249,40 @@ a {
   text-transform: uppercase;
 }
 
-.welcome-splash-curtain {
-  background:
-    radial-gradient(circle at 50% 38%, color-mix(in oklch, oklch(0.78 0.12 82) 16%, transparent), transparent 18rem),
-    linear-gradient(180deg, oklch(0.13 0.055 18), oklch(0.06 0.035 250));
-  box-shadow: 0 0 5rem oklch(0 0 0 / 0.34);
-  inset-block: 0;
-  position: absolute;
-  width: 55vw;
-  z-index: 4;
-}
-
-.welcome-splash-curtain::after {
-  background: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.1), transparent);
-  content: "";
-  inset: 0;
-  opacity: 0.5;
-  position: absolute;
-}
-
-.welcome-splash-curtain-left {
-  left: 0;
-  transform-origin: left center;
-}
-
-.welcome-splash-curtain-right {
-  right: 0;
-  transform-origin: right center;
-}
-
 .welcome-splash-flash {
-  background: radial-gradient(circle, oklch(1 0 0 / 0.72) 0%, oklch(1 0 0 / 0.18) 34%, transparent 72%);
+  background:
+    radial-gradient(circle at 50% 57%, oklch(1 0 0 / 0.76) 0%, oklch(0.95 0.12 88 / 0.24) 33%, transparent 70%);
   inset: 0;
   pointer-events: none;
   position: absolute;
   z-index: 5;
 }
 
+.welcome-splash-aperture {
+  background:
+    conic-gradient(from 12deg, transparent 0 8%, oklch(1 0 0 / 0.82) 10%, oklch(0.9 0.12 86 / 0.88) 14%, transparent 18% 26%, oklch(0.98 0.11 88 / 0.86) 30%, transparent 36% 100%),
+    radial-gradient(circle, oklch(1 0 0 / 0.95) 0 7%, oklch(0.94 0.12 86 / 0.82) 16%, oklch(0.66 0.11 78 / 0.42) 32%, transparent 64%);
+  border-radius: 999px;
+  filter: blur(0.2px) drop-shadow(0 0 2.2rem oklch(0.9 0.13 86 / 0.58));
+  height: 7.5rem;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 57%;
+  translate: -50% -50%;
+  width: 7.5rem;
+  z-index: 6;
+}
+
 .welcome-splash-burst {
   background:
     radial-gradient(circle, oklch(1 0 0 / 0.92) 0 0.12rem, transparent 0.16rem),
-    radial-gradient(circle, color-mix(in oklch, oklch(0.78 0.12 82) 84%, white) 0 0.32rem, transparent 0.5rem);
+    radial-gradient(circle, color-mix(in oklch, oklch(0.9 0.12 86) 86%, white) 0 0.32rem, transparent 0.5rem);
   border: 1px solid oklch(1 0 0 / 0.42);
   border-radius: 999px;
   box-shadow:
     0 0 2rem oklch(1 0 0 / 0.28),
-    0 0 5rem color-mix(in oklch, oklch(0.78 0.12 82) 46%, transparent);
+    0 0 5rem color-mix(in oklch, oklch(0.9 0.12 86) 50%, transparent);
   height: 8rem;
   left: 50%;
   pointer-events: none;
@@ -265,6 +291,56 @@ a {
   translate: -50% -50%;
   width: 8rem;
   z-index: 5;
+}
+
+.welcome-splash-fold {
+  background:
+    radial-gradient(circle at 50% 42%, oklch(0.96 0.11 88 / 0.2), transparent 20rem),
+    linear-gradient(135deg, oklch(0.29 0.055 74 / 0.94), oklch(0.13 0.036 70 / 0.96));
+  box-shadow:
+    inset 0 0 0 1px oklch(1 0 0 / 0.08),
+    0 0 5rem oklch(0 0 0 / 0.28);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 4;
+}
+
+.welcome-splash-fold::after {
+  background:
+    linear-gradient(90deg, transparent, oklch(0.95 0.12 88 / 0.22), transparent),
+    radial-gradient(circle at 50% 55%, oklch(0.92 0.12 86 / 0.22), transparent 22rem);
+  content: "";
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.72;
+  position: absolute;
+}
+
+.welcome-splash-fold-left {
+  transform-origin: left center;
+}
+
+.welcome-splash-fold-right {
+  transform-origin: right center;
+}
+
+.welcome-splash-gold-rain {
+  background:
+    radial-gradient(circle, oklch(1 0 0 / 0.88) 0 0.08rem, transparent 0.11rem),
+    radial-gradient(circle, oklch(0.92 0.13 88 / 0.82) 0 0.16rem, transparent 0.24rem);
+  background-position:
+    0 0,
+    0.85rem 1.2rem;
+  background-size:
+    1.9rem 1.9rem,
+    2.8rem 2.8rem;
+  filter: drop-shadow(0 0 0.7rem oklch(0.9 0.13 88 / 0.58));
+  inset: 0;
+  mask-image: radial-gradient(circle at 50% 56%, black 0 34%, transparent 74%);
+  pointer-events: none;
+  position: absolute;
+  z-index: 6;
 }
 
 .welcome-splash-opening-text {
@@ -295,18 +371,20 @@ a {
 }
 
 .experience {
-  --bg: oklch(1 0 0);
-  --surface: oklch(0.97 0.008 200);
-  --ink: oklch(0.17 0.018 230);
-  --muted: oklch(0.43 0.028 230);
-  --primary: oklch(0.46 0.11 196);
-  --accent: oklch(0.62 0.17 18);
-  --line: oklch(0.88 0.018 220);
-  --soft: oklch(0.94 0.025 200);
-  --glow: oklch(0.72 0.13 198 / 0.34);
+  --bg: oklch(0.2 0.05 72);
+  --surface: oklch(0.29 0.06 75);
+  --ink: oklch(0.98 0.025 86);
+  --muted: oklch(0.86 0.06 84);
+  --primary: oklch(0.78 0.13 84);
+  --accent: oklch(0.93 0.13 88);
+  --line: oklch(0.56 0.08 78);
+  --soft: oklch(0.38 0.07 76);
+  --glow: oklch(0.88 0.15 88 / 0.5);
   background:
-    radial-gradient(circle at 14% 8%, var(--glow), transparent 30rem),
-    linear-gradient(135deg, var(--bg), var(--surface));
+    radial-gradient(circle at 16% 9%, var(--glow), transparent 32rem),
+    radial-gradient(circle at 86% 14%, oklch(0.78 0.12 84 / 0.28), transparent 26rem),
+    radial-gradient(circle at 55% 52%, oklch(0.46 0.08 76 / 0.42), transparent 42rem),
+    linear-gradient(135deg, oklch(0.13 0.035 70), var(--bg) 48%, oklch(0.32 0.065 76));
   color: var(--ink);
   min-height: 100vh;
   overflow-x: hidden;
@@ -314,47 +392,25 @@ a {
   position: relative;
 }
 
-.theme-velvet {
-  --bg: oklch(0.14 0.055 18);
-  --surface: oklch(0.2 0.065 18);
-  --ink: oklch(0.96 0.018 74);
-  --muted: oklch(0.78 0.035 60);
-  --primary: oklch(0.52 0.13 23);
-  --accent: oklch(0.78 0.12 82);
-  --line: oklch(0.4 0.08 28);
-  --soft: oklch(0.27 0.07 21);
-  --glow: oklch(0.62 0.16 28 / 0.36);
-}
-
-.theme-celestial {
-  --bg: oklch(0.11 0.045 258);
-  --surface: oklch(0.18 0.06 252);
-  --ink: oklch(0.96 0.02 235);
-  --muted: oklch(0.78 0.045 230);
-  --primary: oklch(0.68 0.105 202);
-  --accent: oklch(0.87 0.105 96);
-  --line: oklch(0.35 0.07 245);
-  --soft: oklch(0.23 0.065 250);
-  --glow: oklch(0.68 0.12 202 / 0.36);
-}
-
-.theme-lagos {
-  --bg: oklch(1 0 0);
-  --surface: oklch(0.96 0.02 205);
-  --ink: oklch(0.18 0.025 235);
-  --muted: oklch(0.39 0.04 220);
-  --primary: oklch(0.59 0.13 198);
-  --accent: oklch(0.64 0.18 23);
-  --line: oklch(0.86 0.025 205);
-  --soft: oklch(0.92 0.055 198);
-  --glow: oklch(0.72 0.16 198 / 0.32);
+.theme-champagne {
+  --bg: oklch(0.2 0.05 72);
+  --surface: oklch(0.29 0.06 75);
+  --ink: oklch(0.98 0.025 86);
+  --muted: oklch(0.86 0.06 84);
+  --primary: oklch(0.78 0.13 84);
+  --accent: oklch(0.93 0.13 88);
+  --line: oklch(0.56 0.08 78);
+  --soft: oklch(0.38 0.07 76);
+  --glow: oklch(0.88 0.15 88 / 0.5);
 }
 
 .app-header {
   align-items: center;
   backdrop-filter: blur(18px);
-  background: color-mix(in oklch, var(--surface) 46%, transparent);
-  border: 1px solid color-mix(in oklch, var(--line) 72%, transparent);
+  background:
+    radial-gradient(circle at 6% 50%, oklch(0.92 0.13 88 / 0.2), transparent 9rem),
+    color-mix(in oklch, var(--surface) 58%, transparent);
+  border: 1px solid color-mix(in oklch, var(--accent) 34%, var(--line));
   border-radius: 999px;
   box-shadow: 0 1rem 3rem oklch(0 0 0 / 0.12);
   display: flex;
@@ -381,9 +437,9 @@ a {
 
 .brand-mark::before {
   background:
-    radial-gradient(circle at 50% 35%, color-mix(in oklch, var(--accent) 70%, white), transparent 0.26rem),
-    var(--primary);
-  border: 1px solid color-mix(in oklch, var(--accent) 62%, white);
+    radial-gradient(circle at 38% 28%, oklch(1 0 0 / 0.58), transparent 0.38rem),
+    linear-gradient(135deg, oklch(0.97 0.12 88), oklch(0.62 0.1 78));
+  border: 1px solid color-mix(in oklch, var(--accent) 72%, white);
   border-radius: 999px;
   box-shadow: 0 0 0.9rem color-mix(in oklch, var(--accent) 40%, transparent);
   content: "";
@@ -394,9 +450,10 @@ a {
 }
 
 .brand-mark span {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: clamp(1rem, 1.4vw, 1.22rem);
-  letter-spacing: -0.035em;
+  font-weight: 500;
+  letter-spacing: -0.015em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -424,58 +481,9 @@ a {
   white-space: nowrap;
 }
 
-.design-switcher {
-  align-items: center;
-  background: color-mix(in oklch, var(--bg) 58%, transparent);
-  border: 1px solid color-mix(in oklch, var(--line) 65%, transparent);
-  border-radius: 999px;
-  display: flex;
-  flex: 0 1 26rem;
-  gap: 0.35rem;
-  justify-content: center;
-  padding: 0.35rem;
-  width: auto;
-}
-
-.design-switcher > span {
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  padding: 0 0.4rem 0 0.7rem;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.design-switcher > div {
-  display: flex;
-  gap: 0.35rem;
-}
-
-.design-switcher button {
-  background: transparent;
-  border: 0;
-  border-radius: 999px;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 0.86rem;
-  font-weight: 850;
-  min-height: 2.35rem;
-  padding: 0.58rem 0.9rem;
-  transition:
-    background 180ms cubic-bezier(0.23, 1, 0.32, 1),
-    color 180ms cubic-bezier(0.23, 1, 0.32, 1),
-    transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.design-switcher button:active {
-  transform: scale(0.97);
-}
-
-.design-switcher button.is-active {
-  background: var(--primary);
-  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--accent) 28%, transparent);
-  color: oklch(1 0 0);
+.header-note-center {
+  justify-self: center;
+  text-align: center;
 }
 
 .hero-shell {
@@ -489,6 +497,18 @@ a {
   overflow: hidden;
   padding: clamp(2.5rem, 7vw, 5rem) 0 clamp(2rem, 6vw, 4rem);
   position: relative;
+}
+
+.hero-shell::before {
+  background:
+    radial-gradient(circle at 14% 22%, oklch(0.96 0.13 88 / 0.28), transparent 19rem),
+    linear-gradient(115deg, transparent 0 42%, oklch(0.86 0.13 86 / 0.12) 50%, transparent 62% 100%);
+  content: "";
+  inset: -8% -16%;
+  opacity: 0.92;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
 }
 
 .hero-sparkles {
@@ -519,11 +539,16 @@ a {
 }
 
 .hero-copy h1 {
-  font-family: var(--font-marcellus), Georgia, serif;
-  font-size: clamp(4rem, 16vw, 8.4rem);
-  letter-spacing: -0.035em;
-  line-height: 0.86;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
+  color: oklch(1 0 0);
+  font-size: clamp(4.2rem, 15vw, 8rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 0.9;
   max-width: 9ch;
+  text-shadow:
+    0 0 0.65rem oklch(1 0 0 / 0.16),
+    0 0.2rem 0 oklch(0.14 0.035 70 / 0.2);
   text-wrap: balance;
 }
 
@@ -542,15 +567,18 @@ a {
 }
 
 .countdown span {
-  background: color-mix(in oklch, var(--surface) 78%, transparent);
-  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 18% 12%, oklch(0.95 0.12 88 / 0.18), transparent 6rem),
+    color-mix(in oklch, var(--surface) 82%, transparent);
+  border: 1px solid color-mix(in oklch, var(--accent) 32%, var(--line));
   border-radius: 1.1rem;
   padding: 0.8rem;
 }
 
 .countdown strong {
   display: block;
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
+  color: var(--accent);
   font-size: clamp(1.5rem, 6vw, 2.3rem);
   line-height: 1;
 }
@@ -576,10 +604,10 @@ a {
 .details-grid button,
 .rsvp-section button {
   align-items: center;
-  background: var(--primary);
+  background: linear-gradient(135deg, oklch(0.97 0.12 88), oklch(0.7 0.12 78));
   border: 0;
   border-radius: 999px;
-  color: oklch(1 0 0);
+  color: oklch(0.17 0.04 72);
   cursor: pointer;
   display: inline-flex;
   font-weight: 850;
@@ -595,8 +623,10 @@ a {
 
 .hero-actions a:nth-child(2),
 .map-actions a:not(:first-child) {
-  background: color-mix(in oklch, var(--surface) 80%, transparent);
-  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 20% 20%, oklch(0.92 0.12 88 / 0.16), transparent 7rem),
+    color-mix(in oklch, var(--surface) 84%, transparent);
+  border: 1px solid color-mix(in oklch, var(--accent) 28%, var(--line));
   color: var(--ink);
 }
 
@@ -617,11 +647,183 @@ a {
   z-index: 2;
 }
 
+.shuffle-mosaic {
+  background:
+    radial-gradient(circle at 18% 12%, oklch(0.98 0.12 88 / 0.28), transparent 13rem),
+    linear-gradient(145deg, color-mix(in oklch, var(--surface) 72%, var(--accent)), var(--surface));
+  border: 1px solid color-mix(in oklch, var(--accent) 42%, var(--line));
+  border-radius: clamp(1.3rem, 4vw, 2rem);
+  box-shadow:
+    0 2rem 4.5rem oklch(0 0 0 / 0.24),
+    inset 0 0 0 1px oklch(1 0 0 / 0.08);
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(0.7rem, 2vw, 1rem);
+  position: relative;
+}
+
+.shuffle-mosaic::before {
+  background:
+    linear-gradient(115deg, transparent 0 36%, oklch(0.95 0.12 88 / 0.22) 48%, transparent 62% 100%),
+    radial-gradient(circle at 82% 18%, oklch(0.92 0.13 88 / 0.28), transparent 10rem);
+  content: "";
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.86;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.shuffle-mosaic-grid {
+  display: grid;
+  gap: clamp(0.35rem, 1vw, 0.55rem);
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(4.5rem, 1fr));
+  min-height: clamp(23rem, 42vw, 34rem);
+  position: relative;
+  z-index: 1;
+}
+
+.shuffle-mosaic-tile {
+  align-items: center;
+  background:
+    radial-gradient(circle at 30% 22%, oklch(1 0 0 / 0.18), transparent 3.6rem),
+    radial-gradient(circle at 72% 78%, oklch(0.94 0.13 88 / 0.2), transparent 4.2rem),
+    linear-gradient(145deg, color-mix(in oklch, var(--surface) 64%, var(--accent)), color-mix(in oklch, var(--soft) 82%, black));
+  background-position: center;
+  background-size: cover;
+  border: 1px solid color-mix(in oklch, var(--accent) 20%, transparent);
+  border-radius: clamp(0.75rem, 2vw, 1.1rem);
+  box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.08);
+  color: oklch(1 0 0);
+  display: flex;
+  gap: 0.25rem;
+  isolation: isolate;
+  justify-content: flex-start;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.65rem;
+  place-content: unset;
+  position: relative;
+  text-align: center;
+}
+
+.shuffle-mosaic-tile::after {
+  background:
+    linear-gradient(180deg, oklch(0.1 0.025 70 / 0.08), transparent 36%, oklch(0.08 0.025 70 / 0.76)),
+    radial-gradient(circle at 22% 18%, oklch(0.94 0.13 88 / 0.24), transparent 4.8rem);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.shuffle-mosaic-tile::before {
+  background:
+    linear-gradient(125deg, transparent 0 42%, oklch(1 0 0 / 0.18) 48%, transparent 56% 100%),
+    radial-gradient(circle at 74% 18%, oklch(0.92 0.13 88 / 0.32), transparent 4rem);
+  content: "";
+  inset: 0;
+  opacity: 0.48;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.shuffle-mosaic-tile-tall {
+  grid-row: span 2;
+}
+
+.shuffle-mosaic-tile small {
+  align-self: flex-end;
+  background: oklch(0.08 0.02 70 / 0.58);
+  border: 1px solid oklch(1 0 0 / 0.14);
+  border-radius: 999px;
+  color: oklch(1 0 0);
+  font-size: clamp(0.48rem, 1.4vw, 0.68rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin-top: auto;
+  padding: 0.32rem 0.48rem;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.shuffle-mosaic-tile-1,
+.shuffle-mosaic-tile-12 {
+  background:
+    radial-gradient(circle at 35% 24%, oklch(0.94 0.13 88 / 0.34), transparent 5rem),
+    linear-gradient(145deg, oklch(0.32 0.06 74), oklch(0.16 0.04 70));
+}
+
+.shuffle-mosaic-tile-2,
+.shuffle-mosaic-tile-14 {
+  background:
+    radial-gradient(circle at 50% 38%, oklch(1 0 0 / 0.28), transparent 4rem),
+    conic-gradient(from 35deg, oklch(0.76 0.12 82), oklch(0.96 0.13 88), oklch(0.48 0.08 76), oklch(0.76 0.12 82));
+}
+
+.shuffle-mosaic-tile-5,
+.shuffle-mosaic-tile-15 {
+  background:
+    linear-gradient(90deg, oklch(1 0 0 / 0.14) 1px, transparent 1px),
+    linear-gradient(0deg, oklch(1 0 0 / 0.1) 1px, transparent 1px),
+    linear-gradient(145deg, oklch(0.42 0.075 76), oklch(0.18 0.04 70));
+  background-size:
+    1.3rem 1.3rem,
+    1.3rem 1.3rem,
+    auto;
+}
+
+.shuffle-mosaic-tile-9,
+.shuffle-mosaic-tile-13 {
+  background:
+    radial-gradient(circle at 40% 38%, oklch(0.95 0.1 88 / 0.32), transparent 4.5rem),
+    radial-gradient(circle at 65% 52%, oklch(0.72 0.16 28 / 0.2), transparent 4rem),
+    linear-gradient(145deg, oklch(0.36 0.06 74), oklch(0.18 0.04 70));
+}
+
+.shuffle-mosaic-caption {
+  align-items: center;
+  backdrop-filter: blur(16px);
+  background: oklch(0.16 0.035 72 / 0.58);
+  border: 1px solid oklch(1 0 0 / 0.16);
+  border-radius: 999px;
+  bottom: clamp(1rem, 3vw, 1.5rem);
+  color: oklch(1 0 0);
+  display: flex;
+  gap: 0.65rem;
+  justify-content: space-between;
+  left: clamp(1rem, 3vw, 1.5rem);
+  min-width: min(19rem, calc(100% - 2rem));
+  padding: 0.7rem 0.9rem;
+  position: absolute;
+  right: clamp(1rem, 3vw, 1.5rem);
+  z-index: 3;
+}
+
+.shuffle-mosaic-caption span {
+  color: color-mix(in oklch, var(--accent) 76%, white);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.shuffle-mosaic-caption strong {
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-align: right;
+}
+
 .couple-preview {
   background:
     radial-gradient(circle at 20% 10%, var(--glow), transparent 20rem),
-    var(--surface);
-  border: 1px solid var(--line);
+    linear-gradient(145deg, color-mix(in oklch, var(--surface) 82%, var(--accent)), var(--surface));
+  border: 1px solid color-mix(in oklch, var(--accent) 36%, var(--line));
   border-radius: 1.8rem;
   box-shadow: 0 1.5rem 4rem oklch(0 0 0 / 0.18);
   display: grid;
@@ -662,7 +864,7 @@ a {
 }
 
 .preview-copy h2 {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: clamp(1.7rem, 5vw, 2.5rem);
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -697,7 +899,7 @@ a {
 }
 
 .scroll-invitation-title h2 {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: clamp(2.35rem, 8vw, 5.4rem);
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -714,7 +916,9 @@ a {
 }
 
 .scroll-invitation-card {
-  background: var(--surface);
+  background:
+    radial-gradient(circle at 50% 0%, oklch(0.95 0.12 88 / 0.26), transparent 24rem),
+    var(--surface);
   color: var(--ink);
   height: 100%;
   isolation: isolate;
@@ -737,8 +941,9 @@ a {
 
 .scroll-invitation-card::after {
   background:
-    linear-gradient(90deg, oklch(0 0 0 / 0.74), transparent 68%),
-    linear-gradient(0deg, oklch(0 0 0 / 0.5), transparent 44%);
+    radial-gradient(circle at 24% 74%, oklch(0.8 0.13 84 / 0.22), transparent 23rem),
+    linear-gradient(90deg, oklch(0.12 0.035 70 / 0.82), transparent 68%),
+    linear-gradient(0deg, oklch(0.12 0.035 70 / 0.62), transparent 44%);
   content: "";
   inset: 0;
   position: absolute;
@@ -765,7 +970,7 @@ a {
 }
 
 .scroll-invitation-overlay h3 {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: clamp(3rem, 9vw, 6rem);
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -821,7 +1026,7 @@ a {
 }
 
 .scratch-section-copy h2 {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: clamp(2.25rem, 8vw, 4.8rem);
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -854,8 +1059,9 @@ a {
 .scratch-section-card {
   background:
     radial-gradient(circle at 15% 10%, var(--glow), transparent 18rem),
-    color-mix(in oklch, var(--surface) 72%, transparent);
-  border: 1px solid var(--line);
+    radial-gradient(circle at 85% 20%, oklch(0.95 0.12 88 / 0.16), transparent 16rem),
+    color-mix(in oklch, var(--surface) 78%, transparent);
+  border: 1px solid color-mix(in oklch, var(--accent) 32%, var(--line));
   border-radius: 2rem;
   box-shadow: 0 1.5rem 4rem oklch(0 0 0 / 0.16);
   display: grid;
@@ -864,10 +1070,11 @@ a {
 
 .spline-card {
   background:
-    radial-gradient(circle at 74% 22%, color-mix(in oklch, var(--accent) 28%, transparent), transparent 14rem),
-    linear-gradient(135deg, oklch(0 0 0 / 0.34), oklch(0 0 0 / 0.18)),
+    radial-gradient(circle at 74% 22%, color-mix(in oklch, var(--accent) 44%, transparent), transparent 16rem),
+    radial-gradient(circle at 8% 90%, oklch(0.72 0.12 80 / 0.22), transparent 15rem),
+    linear-gradient(135deg, oklch(0.14 0.035 70 / 0.34), oklch(0.31 0.065 76 / 0.24)),
     var(--surface);
-  border: 1px solid color-mix(in oklch, var(--line) 72%, transparent);
+  border: 1px solid color-mix(in oklch, var(--accent) 32%, var(--line));
   border-radius: 1.6rem;
   box-shadow: 0 1.5rem 4rem oklch(0 0 0 / 0.2);
   display: grid;
@@ -913,7 +1120,7 @@ a {
 }
 
 .spline-copy h2 {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: clamp(2rem, 7vw, 3.2rem);
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -1044,8 +1251,10 @@ a {
 .map-card,
 .rsvp-section form,
 .keepsake-section {
-  background: color-mix(in oklch, var(--surface) 86%, transparent);
-  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 18% 12%, oklch(0.95 0.12 88 / 0.12), transparent 12rem),
+    color-mix(in oklch, var(--surface) 88%, transparent);
+  border: 1px solid color-mix(in oklch, var(--accent) 24%, var(--line));
   border-radius: 1.4rem;
   box-shadow: 0 1.2rem 3rem oklch(0 0 0 / 0.08);
 }
@@ -1055,7 +1264,7 @@ a {
 }
 
 .feature-rail article span {
-  background: var(--accent);
+  background: linear-gradient(90deg, oklch(0.98 0.12 88), oklch(0.66 0.11 78));
   border-radius: 999px;
   display: block;
   height: 0.55rem;
@@ -1066,9 +1275,9 @@ a {
 .feature-rail h2,
 .section-heading h2,
 .keepsake-section h2 {
-  font-family: var(--font-marcellus), Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.025em;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.018em;
   text-wrap: balance;
 }
 
@@ -1144,9 +1353,9 @@ a {
 
 .flow-story-heading {
   background:
-    radial-gradient(circle at 16% 0%, color-mix(in oklch, var(--accent) 22%, transparent), transparent 16rem),
-    color-mix(in oklch, var(--surface) 54%, transparent);
-  border: 1px solid color-mix(in oklch, var(--line) 70%, transparent);
+    radial-gradient(circle at 16% 0%, color-mix(in oklch, var(--accent) 34%, transparent), transparent 18rem),
+    linear-gradient(135deg, color-mix(in oklch, var(--surface) 72%, var(--accent)), color-mix(in oklch, var(--surface) 74%, transparent));
+  border: 1px solid color-mix(in oklch, var(--accent) 28%, var(--line));
   border-radius: clamp(1.35rem, 4vw, 2.2rem);
   box-shadow: 0 1.4rem 4rem oklch(0 0 0 / 0.12);
   margin-bottom: 1rem;
@@ -1188,19 +1397,32 @@ a {
 
 .flow-panel .flow-art-container {
   color: oklch(1 0 0);
+  min-height: 102svh;
   padding: clamp(1.2rem, 4vw, 3rem);
+}
+
+.flow-panel-primary {
+  background: linear-gradient(135deg, oklch(0.86 0.13 86), oklch(0.5 0.09 76));
 }
 
 .flow-panel-primary .flow-art-container {
   background:
-    radial-gradient(circle at 82% 18%, color-mix(in oklch, var(--accent) 38%, transparent), transparent 18rem),
-    linear-gradient(135deg, var(--primary), color-mix(in oklch, var(--primary) 68%, black));
+    radial-gradient(circle at 82% 18%, color-mix(in oklch, var(--accent) 48%, transparent), transparent 18rem),
+    linear-gradient(135deg, oklch(0.86 0.13 86), oklch(0.5 0.09 76));
+}
+
+.flow-panel-dark {
+  background: linear-gradient(135deg, oklch(0.18 0.04 72), oklch(0.33 0.06 76));
 }
 
 .flow-panel-dark .flow-art-container {
   background:
     radial-gradient(circle at 15% 18%, color-mix(in oklch, var(--accent) 34%, transparent), transparent 18rem),
-    linear-gradient(135deg, oklch(0.08 0.03 250), oklch(0.16 0.05 20));
+    linear-gradient(135deg, oklch(0.18 0.04 72), oklch(0.33 0.06 76));
+}
+
+.flow-panel-soft {
+  background: color-mix(in oklch, var(--surface) 88%, white);
 }
 
 .flow-panel-soft .flow-art-container {
@@ -1225,11 +1447,11 @@ a {
 }
 
 .flow-panel h2 {
-  font-family: var(--font-marcellus), Georgia, serif;
-  font-size: clamp(4rem, 13vw, 11rem);
-  font-weight: 400;
-  letter-spacing: -0.06em;
-  line-height: 0.82;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
+  font-size: clamp(3.8rem, 12vw, 8.4rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 0.88;
   text-transform: uppercase;
 }
 
@@ -1268,10 +1490,10 @@ a {
 
 .wedding-circle-section {
   background:
-    radial-gradient(circle at 18% 20%, color-mix(in oklch, var(--accent) 22%, transparent), transparent 18rem),
+    radial-gradient(circle at 18% 20%, color-mix(in oklch, var(--accent) 34%, transparent), transparent 18rem),
     radial-gradient(circle at 86% 78%, var(--glow), transparent 22rem),
-    color-mix(in oklch, var(--surface) 76%, transparent);
-  border: 1px solid color-mix(in oklch, var(--line) 72%, transparent);
+    linear-gradient(145deg, color-mix(in oklch, var(--surface) 82%, var(--accent)), color-mix(in oklch, var(--surface) 78%, transparent));
+  border: 1px solid color-mix(in oklch, var(--accent) 32%, var(--line));
   border-radius: clamp(1.6rem, 4vw, 2.4rem);
   box-shadow: 0 2rem 5rem oklch(0 0 0 / 0.16);
   margin: clamp(3rem, 9vw, 7rem) auto 0;
@@ -1317,7 +1539,7 @@ a {
 }
 
 .wedding-circle-intro h2 {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: clamp(2.5rem, 8vw, 5.6rem);
   font-weight: 400;
   letter-spacing: -0.035em;
@@ -1367,7 +1589,9 @@ a {
 }
 
 .team-photo-card {
-  background: var(--soft);
+  background:
+    radial-gradient(circle at 30% 18%, oklch(1 0 0 / 0.16), transparent 4rem),
+    linear-gradient(145deg, color-mix(in oklch, var(--surface) 74%, var(--accent)), var(--soft));
   border: 1px solid color-mix(in oklch, var(--line) 72%, transparent);
   border-radius: 1.2rem;
   cursor: pointer;
@@ -1381,18 +1605,83 @@ a {
     box-shadow 220ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.team-photo-card img {
-  display: block;
-  filter: grayscale(1) brightness(0.72) contrast(1.08);
-  height: 100%;
-  object-fit: cover;
+.team-cartoon-portrait {
+  display: grid;
+  inset: 0;
+  place-items: center;
+  position: absolute;
   transition:
     filter 360ms cubic-bezier(0.23, 1, 0.32, 1),
     transform 520ms cubic-bezier(0.23, 1, 0.32, 1);
-  width: 100%;
 }
 
-.team-photo-card span {
+.team-cartoon-portrait::before {
+  background:
+    radial-gradient(circle at 50% 42%, oklch(0.93 0.13 88 / 0.3), transparent 4rem),
+    radial-gradient(circle, oklch(1 0 0 / 0.6) 0 0.08rem, transparent 0.12rem);
+  background-size:
+    auto,
+    1.5rem 1.5rem;
+  content: "";
+  inset: 0;
+  opacity: 0.56;
+  position: absolute;
+}
+
+.team-cartoon-head {
+  background:
+    radial-gradient(circle at 38% 34%, oklch(1 0 0 / 0.35), transparent 0.7rem),
+    oklch(0.86 0.08 72);
+  border-radius: 999px;
+  box-shadow: 0 -0.55rem 0 0.1rem oklch(0.18 0.04 70);
+  height: 31%;
+  position: relative;
+  transform: translateY(-42%);
+  width: 34%;
+  z-index: 2;
+}
+
+.team-cartoon-body {
+  background:
+    radial-gradient(circle at 50% 0%, oklch(1 0 0 / 0.18), transparent 2.8rem),
+    linear-gradient(135deg, oklch(0.9 0.12 86), oklch(0.48 0.08 76));
+  border-radius: 999px 999px 1.1rem 1.1rem;
+  bottom: 16%;
+  height: 38%;
+  position: absolute;
+  width: 56%;
+  z-index: 1;
+}
+
+.team-cartoon-sparkle {
+  background: oklch(1 0 0 / 0.9);
+  border-radius: 999px;
+  box-shadow:
+    1.2rem 0.9rem 0 -0.08rem oklch(0.92 0.13 88),
+    -1rem 1.4rem 0 -0.12rem oklch(1 0 0 / 0.72);
+  height: 0.36rem;
+  position: absolute;
+  right: 24%;
+  top: 22%;
+  width: 0.36rem;
+  z-index: 3;
+}
+
+.team-cartoon-portrait-2 .team-cartoon-head,
+.team-cartoon-portrait-4 .team-cartoon-head,
+.team-cartoon-portrait-6 .team-cartoon-head {
+  background:
+    radial-gradient(circle at 38% 34%, oklch(1 0 0 / 0.32), transparent 0.7rem),
+    oklch(0.78 0.075 68);
+  box-shadow: 0 -0.55rem 0 0.1rem oklch(0.23 0.06 46);
+}
+
+.team-cartoon-portrait-2 .team-cartoon-body,
+.team-cartoon-portrait-6 .team-cartoon-body {
+  background: linear-gradient(135deg, oklch(0.98 0.04 86), oklch(0.72 0.11 82));
+}
+
+.team-photo-role {
   background: linear-gradient(180deg, transparent, oklch(0 0 0 / 0.62));
   bottom: 0;
   color: oklch(1 0 0);
@@ -1411,8 +1700,8 @@ a {
   transform: translateY(-0.35rem) scale(1.015);
 }
 
-.team-photo-card.is-active img {
-  filter: grayscale(0) brightness(1) contrast(1.02);
+.team-photo-card.is-active .team-cartoon-portrait {
+  filter: brightness(1.08) contrast(1.03);
   transform: scale(1.06);
 }
 
@@ -1480,7 +1769,7 @@ a {
 }
 
 .team-member-heading h3 {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: clamp(1.35rem, 3vw, 2rem);
   font-weight: 400;
   letter-spacing: -0.025em;
@@ -1548,7 +1837,7 @@ a {
 
 .details-grid h3,
 .map-card h3 {
-  font-family: var(--font-marcellus), Georgia, serif;
+  font-family: var(--font-bodoni-moda), "Bodoni 72", Didot, Georgia, serif;
   font-size: 1.65rem;
   font-weight: 400;
 }
@@ -1713,25 +2002,13 @@ a {
   border-radius: 1rem;
 }
 
-.theme-celestial .memory-strip span {
-  border-radius: 999px 999px 1.25rem 1.25rem;
-}
-
-.theme-lagos .hero-shell {
-  gap: clamp(1.5rem, 5vw, 3rem);
-}
-
-.theme-lagos .spline-card {
-  border-radius: 1rem;
-}
-
 @media (min-width: 820px) {
   .hero-shell {
     grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.82fr);
   }
 
   .hero-copy h1 {
-    font-size: clamp(5.2rem, 10vw, 9rem);
+    font-size: clamp(5rem, 9vw, 7.8rem);
   }
 
   .map-card,
@@ -1780,30 +2057,25 @@ a {
     text-align: left;
   }
 
-  .design-switcher {
-    border-radius: 1rem;
-    flex: none;
-    overflow-x: auto;
-    justify-content: flex-start;
-    scrollbar-width: none;
-    width: 100%;
-  }
-
-  .design-switcher::-webkit-scrollbar {
-    display: none;
-  }
-
-  .design-switcher > div {
-    flex: 1 0 auto;
-  }
-
-  .design-switcher button {
-    white-space: nowrap;
-  }
-
   .hero-shell {
     min-height: auto;
     padding-top: 2rem;
+  }
+
+  .shuffle-mosaic-grid {
+    grid-template-rows: repeat(4, minmax(3.9rem, 1fr));
+    min-height: 21rem;
+  }
+
+  .shuffle-mosaic-caption {
+    align-items: flex-start;
+    border-radius: 1rem;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .shuffle-mosaic-caption strong {
+    text-align: left;
   }
 
   .hero-actions a,
@@ -1929,6 +2201,7 @@ a {
 @media (prefers-reduced-motion: no-preference) {
   .hero-copy,
   .couple-preview,
+  .shuffle-mosaic,
   .feature-rail article,
   .content-section,
   .keepsake-section {
@@ -1936,6 +2209,10 @@ a {
   }
 
   .couple-preview {
+    animation-delay: 120ms;
+  }
+
+  .shuffle-mosaic {
     animation-delay: 120ms;
   }
 
@@ -1951,7 +2228,8 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .welcome-splash-photo,
-  .welcome-splash-open-pulse {
+  .welcome-splash-open-pulse,
+  .welcome-splash-gold-rain {
     animation: none;
   }
 

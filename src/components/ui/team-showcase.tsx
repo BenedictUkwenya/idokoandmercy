@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, type ReactNode } from "react";
 import { FaBehance, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
@@ -10,7 +9,6 @@ export type TeamMember = {
   id: string;
   name: string;
   role: string;
-  image: string;
   note?: string;
   social?: {
     twitter?: string;
@@ -25,29 +23,25 @@ const defaultMembers: TeamMember[] = [
     id: "1",
     name: "Chief Idoko",
     role: "Family blessing",
-    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=900&q=85",
     note: "Receives guests on behalf of the family.",
   },
   {
     id: "2",
     name: "Mercy’s Ladies",
     role: "Bridal party",
-    image: "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?auto=format&fit=crop&w=900&q=85",
     note: "The softness, the laughter, the first dance circle.",
     social: { instagram: "#" },
   },
   {
     id: "3",
-    name: "Barrister’s Men",
+    name: "Idoko’s Men",
     role: "Groomsmen",
-    image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=85",
     note: "Keeping the groom calm, sharp, and on time.",
   },
   {
     id: "4",
     name: "The Planner",
     role: "Guest concierge",
-    image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=85",
     note: "Directions, timing, questions, and calm logistics.",
     social: { instagram: "#" },
   },
@@ -55,7 +49,6 @@ const defaultMembers: TeamMember[] = [
     id: "5",
     name: "Lens & Light",
     role: "Photo + film",
-    image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=85",
     note: "Capturing the day as a memory room after the wedding.",
     social: { instagram: "#", behance: "#" },
   },
@@ -63,7 +56,6 @@ const defaultMembers: TeamMember[] = [
     id: "6",
     name: "Glam Room",
     role: "Makeup + styling",
-    image: "https://images.unsplash.com/photo-1509610973147-232dfea52a97?auto=format&fit=crop&w=900&q=85",
     note: "Details, fabric, glow, and the final mirror moment.",
     social: { instagram: "#" },
   },
@@ -152,8 +144,12 @@ function PhotoCard({
       onMouseLeave={() => onHover(null)}
       type="button"
     >
-      <Image alt={member.name} draggable={false} fill sizes="(max-width: 520px) 120px, 180px" src={member.image} />
-      <span>{member.role}</span>
+      <span aria-hidden="true" className={`team-cartoon-portrait team-cartoon-portrait-${member.id}`}>
+        <span className="team-cartoon-head" />
+        <span className="team-cartoon-body" />
+        <span className="team-cartoon-sparkle" />
+      </span>
+      <span className="team-photo-role">{member.role}</span>
     </button>
   );
 }
