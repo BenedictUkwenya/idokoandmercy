@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Nunito_Sans } from "next/font/google";
 import "./globals.css";
-import { getSiteUrl, siteConfig } from "@/lib/site";
+import { getOgImageUrl, getSiteUrl, siteConfig } from "@/lib/site";
 
 const nunitoSans = Nunito_Sans({
   variable: "--font-nunito-sans",
@@ -16,6 +16,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 const siteUrl = getSiteUrl();
+const ogImageUrl = getOgImageUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -48,7 +49,8 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: siteConfig.ogImage,
+        url: ogImageUrl,
+        secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
         alt: siteConfig.ogImageAlt,
@@ -60,11 +62,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
+    images: [ogImageUrl],
   },
   alternates: {
     canonical: siteUrl,
   },
+};
+
+export const viewport: Viewport = {
   themeColor: "#f4efe3",
 };
 
