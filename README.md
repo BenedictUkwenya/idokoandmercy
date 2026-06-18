@@ -1,33 +1,56 @@
-# Idoko & Mercy Wedding Experience
+# Idoko & Mercy — RSVP Form
 
-A premium, mobile-first wedding invitation experience for Idoko and Mercy. Built with Next.js, Tailwind CSS, Framer Motion, GSAP, Spline, Supabase SDK readiness, and interactive invitation moments including a welcome gate, scratch reveal, story scroll, countdown, map, and RSVP preview.
+Standalone wedding RSVP form with **Next.js**, **Supabase**, and **Resend**. Link this page from the Canva invitation.
 
-## Local Development
+## What it does
+
+1. Guest fills the RSVP form
+2. Response is saved in Supabase
+3. Guest receives a confirmation email via Resend
+4. Couple/planner receives a notification email (optional)
+
+## Setup
+
+### 1. Supabase
+
+1. Create a project at [supabase.com](https://supabase.com)
+2. Open **SQL Editor** and run `supabase/schema.sql`
+3. Copy **Project URL** and **service role key** from **Project Settings → API**
+
+### 2. Resend
+
+1. Create an account at [resend.com](https://resend.com)
+2. Create an API key
+3. **Without a custom domain:** use `onboarding@resend.dev` as the sender and only send to your verified email while testing
+4. After you buy a domain, verify it in Resend and update `RESEND_FROM_EMAIL`
+
+### 3. Environment variables
+
+Copy `.env.example` to `.env.local` and fill in:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+RESEND_API_KEY=
+RESEND_FROM_EMAIL=onboarding@resend.dev
+RSVP_NOTIFY_EMAIL=couple@example.com
+```
+
+### 4. Run locally
 
 ```bash
+yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000)
 
-## Checks
+## Canva integration
 
-```bash
-yarn lint
-yarn build
-```
+Add a button on the Canva site:
 
-## Vercel Deployment
+**RSVP Now** → `https://your-vercel-domain.com`
 
-This is a standard Next.js app. Import the GitHub repository into Vercel and use the defaults:
+## Deploy
 
-- Framework preset: `Next.js`
-- Install command: `yarn install`
-- Build command: `yarn build`
-- Output directory: Next.js default
-
-No environment variables are required for the current frontend preview. Supabase integration can be added later when the chosen design moves into backend work.
-
-## Mobile Responsiveness
-
-The experience is designed phone-first, with responsive layouts for the welcome gate, hero, scroll story, scratch card, venue map, RSVP, and supporting sections.
+Push to GitHub and deploy on Vercel. Add the same environment variables in the Vercel project settings.

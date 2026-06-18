@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Quattrocento_Sans } from "next/font/google";
+import { Cormorant_Garamond, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 
-const quattrocentoSans = Quattrocento_Sans({
-  variable: "--font-quattrocento-sans",
-  weight: ["400", "700"],
+const nunitoSans = Nunito_Sans({
+  variable: "--font-nunito-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const bodoniModa = Bodoni_Moda({
-  variable: "--font-bodoni-moda",
-  weight: ["400", "500", "600", "700"],
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Idoko & Mercy Wedding Experience",
-  description:
-    "A premium digital wedding invitation experience with RSVP, program, venue, and guest guidance.",
+  title: "RSVP — Idoko & Mercy Wedding",
+  description: "RSVP for Idoko and Mercy's wedding celebration.",
 };
 
 export default function RootLayout({
@@ -26,11 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${quattrocentoSans.variable} ${bodoniModa.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${nunitoSans.variable} ${cormorant.variable} h-full antialiased`}>
+      <body className="min-h-full">{children}</body>
     </html>
   );
 }
